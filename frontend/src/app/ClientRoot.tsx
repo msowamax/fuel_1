@@ -1,9 +1,10 @@
 "use client";
+import { ReactNode } from "react";
 import { useLanguage } from "@/context/LanguageContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { AuthProvider } from "@/context/AuthContext";
 
-export default function ClientRoot({ children }: { children: React.ReactNode }) {
+export default function ClientRoot({ children }: { children: ReactNode }) {
     const { language } = useLanguage();
     const isRtl = language === 'ar';
 
