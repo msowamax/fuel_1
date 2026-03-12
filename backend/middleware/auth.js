@@ -27,6 +27,9 @@ const auth = async (req, res, next) => {
         req.user = user;
         next();
     } catch (error) {
+        console.error('--- Auth Middleware Failure ---');
+        console.error('Message:', error.message);
+        if (error.stack) console.error('Stack:', error.stack);
         res.status(401).send({ error: 'Please authenticate.' });
     }
 };
