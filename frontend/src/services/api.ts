@@ -1,8 +1,15 @@
 import axios from 'axios';
 
 const getBaseURL = () => {
-    const raw = process.env.NEXT_PUBLIC_API_URL;
-    if (!raw) return '/api/';
+    let raw = process.env.NEXT_PUBLIC_API_URL;
+
+    // Fallback for local development if NEXT_PUBLIC_API_URL is not set in .env
+    if (!raw && process.env.NODE_ENV !== 'production') {
+        raw = 'http://127.0.0.1:5000/api';
+    } else if (!raw) {
+        console.warn("⚠️ NEXT_PUBLIC_API_URL is not defined. API calls might fail. Please set it in Vercel.");
+        return '/api/';
+    }
 
     // Remove trailing slash if exists
     let baseUrl = raw.endsWith('/') ? raw.slice(0, -1) : raw;
